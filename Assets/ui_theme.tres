@@ -1,0 +1,109 @@
+[gd_resource type="Theme" format=3 uid="uid://bjlrrfb8ne3e0"]
+
+[ext_resource type="FontFile" uid="uid://ejhdd75nsh75" path="res://Assets/Fonts/Satoshi-Variable.ttf" id="1_8o3mm"]
+[ext_resource type="Texture2D" uid="uid://bpr4ouh4o0dm7" path="res://Assets/Audio Control/Default Grabber.png" id="2_2vqjt"]
+[ext_resource type="Texture2D" uid="uid://cf68a2h16o1ik" path="res://Assets/Audio Control/Disabled Grabber.png" id="3_i77sk"]
+[ext_resource type="Texture2D" uid="uid://2xphrlxhhlho" path="res://Assets/Audio Control/Highlight Grabber.png" id="4_dkgtn"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6usot"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.21663257, 0.19692501, 0.07377016, 1)
+corner_radius_top_left = 100
+corner_radius_top_right = 100
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
+corner_detail = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5vw27"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.44772798, 0.41365847, 0.18990445, 1)
+corner_radius_top_left = 100
+corner_radius_top_right = 100
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
+corner_detail = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_272bh"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.34509805, 0.31764707, 0.13725491, 1)
+corner_radius_top_left = 100
+corner_radius_top_right = 100
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
+corner_detail = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kh4qu"]
+bg_color = Color(0.9490196, 0.6509804, 0.3529412, 1)
+corner_radius_top_left = 100
+corner_radius_top_right = 100
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
+corner_detail = 6
+
+[sub_resource type="ImageTexture" id="ImageTexture_8o3mm"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_2vqjt"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_i77sk"]
+
+[sub_resource type="DPITexture" id="DPITexture_78ylj"]
+_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"4\" height=\"8\"><path fill=\"#fff\" fill-opacity=\".25\" d=\"M1 0h2v16H1z\"/></svg>
+"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7mycd"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.17283267, 0.17283267, 0.17283258, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+corner_detail = 6
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_jsnga"]
+color = Color(0.44705883, 0.4117647, 0.1882353, 1)
+
+[sub_resource type="DPITexture" id="DPITexture_aggjg"]
+_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"8\" height=\"4\"><path fill=\"#fff\" fill-opacity=\".25\" d=\"M0 3V1h16v2z\"/></svg>
+"
+
+[resource]
+Button/fonts/font = ExtResource("1_8o3mm")
+Button/styles/disabled = SubResource("StyleBoxFlat_6usot")
+Button/styles/hover = SubResource("StyleBoxFlat_5vw27")
+Button/styles/hover_pressed = SubResource("StyleBoxFlat_5vw27")
+Button/styles/normal = SubResource("StyleBoxFlat_272bh")
+Button/styles/pressed = SubResource("StyleBoxFlat_kh4qu")
+HSlider/constants/center_grabber = 0
+HSlider/constants/grabber_offset = 0
+HSlider/constants/tick_offset = 0
+HSlider/icons/grabber = SubResource("ImageTexture_8o3mm")
+HSlider/icons/grabber_disabled = SubResource("ImageTexture_2vqjt")
+HSlider/icons/grabber_highlight = SubResource("ImageTexture_i77sk")
+HSlider/icons/tick = SubResource("DPITexture_78ylj")
+HSlider/styles/grabber_area = SubResource("StyleBoxFlat_272bh")
+HSlider/styles/grabber_area_highlight = SubResource("StyleBoxFlat_5vw27")
+HSlider/styles/slider = SubResource("StyleBoxFlat_7mycd")
+Label/fonts/font = ExtResource("1_8o3mm")
+Label/styles/focus = SubResource("StyleBoxLine_jsnga")
+VSlider/constants/center_grabber = 0
+VSlider/constants/grabber_offset = 0
+VSlider/constants/tick_offset = 0
+VSlider/icons/grabber = ExtResource("2_2vqjt")
+VSlider/icons/grabber_disabled = ExtResource("3_i77sk")
+VSlider/icons/grabber_highlight = ExtResource("4_dkgtn")
+VSlider/icons/tick = SubResource("DPITexture_aggjg")
+VSlider/styles/grabber_area = SubResource("StyleBoxFlat_272bh")
+VSlider/styles/grabber_area_highlight = SubResource("StyleBoxFlat_5vw27")
+VSlider/styles/slider = SubResource("StyleBoxFlat_7mycd")

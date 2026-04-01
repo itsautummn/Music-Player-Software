@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bonx2ojml7ym8"
+path="res://.godot/imported/mean song edit.mp3-8222f3c22c2d55706f0db1322ecc6dbe.mp3str"
+
+[deps]
+
+source_file="res://Assets/mean song edit.mp3"
+dest_files=["res://.godot/imported/mean song edit.mp3-8222f3c22c2d55706f0db1322ecc6dbe.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

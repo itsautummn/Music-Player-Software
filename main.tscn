@@ -1,0 +1,211 @@
+[gd_scene format=3 uid="uid://c7o7lgvjlnqj1"]
+
+[ext_resource type="Texture2D" uid="uid://dgvq11mp15b3a" path="res://Assets/Audio Control/Previous.png" id="1_h2yge"]
+[ext_resource type="Texture2D" uid="uid://bnlcdacfkto06" path="res://Assets/Audio Control/Favorite.png" id="1_lquwl"]
+[ext_resource type="Script" uid="uid://bsfhl7s4oudbb" path="res://Scripts/audio_stream_player.gd" id="1_vivmo"]
+[ext_resource type="AudioStream" uid="uid://bonx2ojml7ym8" path="res://Assets/mean song edit.mp3" id="1_yaehf"]
+[ext_resource type="Texture2D" uid="uid://yyf87x05qiyd" path="res://Assets/Audio Control/Pause.png" id="2_1bvp3"]
+[ext_resource type="Script" uid="uid://h6mqgn872ah7" path="res://Scripts/music_time_h_box_container.gd" id="3_074og"]
+[ext_resource type="Texture2D" uid="uid://ypowfjney8b1" path="res://Assets/Audio Control/Favorite Checked.png" id="3_kek77"]
+[ext_resource type="Texture2D" uid="uid://c6krx32lsg3ck" path="res://Assets/Audio Control/Next.png" id="3_lquwl"]
+[ext_resource type="Texture2D" uid="uid://cpsyp3yovvx1p" path="res://Assets/Audio Control/Favorite Unchecked Highlighted.png" id="4_4c57u"]
+[ext_resource type="Texture2D" uid="uid://4v24utp28oak" path="res://Assets/Audio Control/Loop.png" id="5_7mycd"]
+[ext_resource type="Texture2D" uid="uid://bsuh4s1ibdgw2" path="res://Assets/Audio Control/Audio.png" id="6_7mycd"]
+[ext_resource type="Theme" uid="uid://bjlrrfb8ne3e0" path="res://Assets/ui_theme.tres" id="6_272bh"]
+[ext_resource type="Texture2D" uid="uid://bmkvhjtfy1j38" path="res://Assets/Audio Control/Previous Highlighted.png" id="6_w48qg"]
+[ext_resource type="Texture2D" uid="uid://qsimnhewkboe" path="res://Assets/Audio Control/Pause Highlighted.png" id="8_vivmo"]
+[ext_resource type="Texture2D" uid="uid://dghrgow7qmc" path="res://Assets/Audio Control/Previous Disabled.png" id="9_0odxb"]
+[ext_resource type="Texture2D" uid="uid://bfye7ldye64io" path="res://Assets/Audio Control/Loop Checked.png" id="9_efxa6"]
+[ext_resource type="Texture2D" uid="uid://bptrss0pnkqqh" path="res://Assets/Audio Control/Next Highlighted.png" id="10_2cqfq"]
+[ext_resource type="Script" uid="uid://d3wpjksrtu0ln" path="res://Scripts/prev_texture_button.gd" id="10_a6jrf"]
+[ext_resource type="Texture2D" uid="uid://bfjyygiolcxiq" path="res://Assets/Audio Control/Loop Unchecked Highlighted.png" id="10_dg77c"]
+[ext_resource type="Script" uid="uid://ctuk10745ai5j" path="res://Scripts/play_texture_button.gd" id="12_cegan"]
+[ext_resource type="Script" uid="uid://bjspo76am0upe" path="res://Scripts/music_time_h_slider.gd" id="15_2cqfq"]
+[ext_resource type="Texture2D" uid="uid://me4aspjx1lja" path="res://Assets/Audio Control/Next Disabled.png" id="15_lswn8"]
+[ext_resource type="Script" uid="uid://61xtign76cbw" path="res://Scripts/next_texture_button.gd" id="17_xuqvo"]
+[ext_resource type="Script" uid="uid://dewmlcc7ragwi" path="res://Scripts/loop_texture_button.gd" id="18_82xsv"]
+[ext_resource type="Script" uid="uid://cpk0owykbpw6d" path="res://Scripts/volume_h_slider.gd" id="21_getpj"]
+[ext_resource type="Script" uid="uid://bsnchsh0m55lv" path="res://Scripts/audio_queue.gd" id="22_d13ii"]
+[ext_resource type="AudioStream" uid="uid://c25rod82dfuxl" path="res://Assets/in my room - spoonxyz.mp3" id="23_1u8w0"]
+
+[node name="Control" type="Control" unique_id=547307101]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1570014397]
+script = ExtResource("1_vivmo")
+
+[node name="AudioControlCanvasLayer" type="CanvasLayer" parent="." unique_id=1595233889]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="AudioControlCanvasLayer" unique_id=624510737]
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.95
+anchor_right = 0.5
+anchor_bottom = 0.95
+offset_left = -215.5
+offset_top = -45.0
+offset_right = 215.5
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 4.92
+
+[node name="MusicTimeHBoxContainer" type="HBoxContainer" parent="AudioControlCanvasLayer/VBoxContainer" unique_id=1588701228]
+layout_mode = 2
+script = ExtResource("3_074og")
+
+[node name="CurrentTimeLabel" type="Label" parent="AudioControlCanvasLayer/VBoxContainer/MusicTimeHBoxContainer" unique_id=562282899]
+layout_mode = 2
+theme = ExtResource("6_272bh")
+text = "00:00"
+
+[node name="SpacingControl" type="Control" parent="AudioControlCanvasLayer/VBoxContainer/MusicTimeHBoxContainer" unique_id=184942445]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TotalTimeLabel" type="Label" parent="AudioControlCanvasLayer/VBoxContainer/MusicTimeHBoxContainer" unique_id=909977399]
+layout_mode = 2
+theme = ExtResource("6_272bh")
+text = "00:00"
+
+[node name="ButtonHBoxContainer" type="HBoxContainer" parent="AudioControlCanvasLayer/VBoxContainer" unique_id=343578718]
+layout_mode = 2
+
+[node name="FavTextureButton" type="TextureButton" parent="AudioControlCanvasLayer/VBoxContainer/ButtonHBoxContainer" unique_id=1784300766]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+toggle_mode = true
+texture_normal = ExtResource("1_lquwl")
+texture_pressed = ExtResource("3_kek77")
+texture_hover = ExtResource("4_4c57u")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="SpacingControl1" type="Control" parent="AudioControlCanvasLayer/VBoxContainer/ButtonHBoxContainer" unique_id=30856684]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 20.0
+
+[node name="PrevTextureButton" type="TextureButton" parent="AudioControlCanvasLayer/VBoxContainer/ButtonHBoxContainer" unique_id=76944066]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+texture_normal = ExtResource("1_h2yge")
+texture_hover = ExtResource("6_w48qg")
+texture_disabled = ExtResource("9_0odxb")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("10_a6jrf")
+
+[node name="PlayTextureButton" type="TextureButton" parent="AudioControlCanvasLayer/VBoxContainer/ButtonHBoxContainer" unique_id=1682964076]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+texture_normal = ExtResource("2_1bvp3")
+texture_hover = ExtResource("8_vivmo")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("12_cegan")
+
+[node name="NextTextureButton" type="TextureButton" parent="AudioControlCanvasLayer/VBoxContainer/ButtonHBoxContainer" unique_id=1454760994]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+texture_normal = ExtResource("3_lquwl")
+texture_hover = ExtResource("10_2cqfq")
+texture_disabled = ExtResource("15_lswn8")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("17_xuqvo")
+
+[node name="SpacingControl2" type="Control" parent="AudioControlCanvasLayer/VBoxContainer/ButtonHBoxContainer" unique_id=1506397773]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 20.0
+
+[node name="LoopTextureButton" type="TextureButton" parent="AudioControlCanvasLayer/VBoxContainer/ButtonHBoxContainer" unique_id=325858315]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+size_flags_horizontal = 6
+toggle_mode = true
+texture_normal = ExtResource("5_7mycd")
+texture_pressed = ExtResource("9_efxa6")
+texture_hover = ExtResource("10_dg77c")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("18_82xsv")
+
+[node name="MusicTimeHSlider" type="HSlider" parent="AudioControlCanvasLayer/VBoxContainer" unique_id=1349002939]
+layout_mode = 2
+theme = ExtResource("6_272bh")
+step = 0.01
+value = 50.0
+script = ExtResource("15_2cqfq")
+
+[node name="VolumeHBoxContainer" type="HBoxContainer" parent="AudioControlCanvasLayer" unique_id=398110630]
+anchors_preset = -1
+anchor_left = 0.95
+anchor_top = 0.95
+anchor_right = 0.95
+anchor_bottom = 0.95
+offset_left = -88.0
+offset_top = -25.0
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="VolumeTextureRect" type="TextureRect" parent="AudioControlCanvasLayer/VolumeHBoxContainer" unique_id=1918884183]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("6_7mycd")
+expand_mode = 1
+
+[node name="VolumeHSlider" type="HSlider" parent="AudioControlCanvasLayer/VolumeHBoxContainer" unique_id=1512010735]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme = ExtResource("6_272bh")
+value = 50.0
+script = ExtResource("21_getpj")
+
+[node name="BackgroundCanvasLayer" type="CanvasLayer" parent="." unique_id=128446050]
+layer = -10
+
+[node name="TemporaryBackroundColorRect" type="ColorRect" parent="BackgroundCanvasLayer" unique_id=1455960727]
+process_mode = 4
+z_index = -10
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.46666667, 0.18431373, 0.101960786, 1)
+
+[node name="MusicSelectionCanvasLayer" type="CanvasLayer" parent="." unique_id=2055828901]
+visible = false
+
+[node name="AudioQueue" type="Node" parent="." unique_id=507266507]
+script = ExtResource("22_d13ii")
+queue = Array[AudioStream]([ExtResource("1_yaehf"), ExtResource("23_1u8w0")])
+
+[connection signal="finished" from="AudioStreamPlayer" to="AudioQueue" method="_on_audio_stream_player_finished"]
+[connection signal="update_playback_position" from="AudioStreamPlayer" to="AudioControlCanvasLayer/VBoxContainer/MusicTimeHBoxContainer" method="_on_audio_stream_player_update_playback_position"]
+[connection signal="update_playback_position" from="AudioStreamPlayer" to="AudioControlCanvasLayer/VBoxContainer/MusicTimeHSlider" method="_on_audio_stream_player_update_playback_position"]
+[connection signal="pressed" from="AudioControlCanvasLayer/VBoxContainer/ButtonHBoxContainer/PrevTextureButton" to="AudioQueue" method="_on_prev_texture_button_pressed"]
+[connection signal="pressed" from="AudioControlCanvasLayer/VBoxContainer/ButtonHBoxContainer/PlayTextureButton" to="AudioControlCanvasLayer/VBoxContainer/ButtonHBoxContainer/PlayTextureButton" method="_on_pressed"]
+[connection signal="pressed_sig" from="AudioControlCanvasLayer/VBoxContainer/ButtonHBoxContainer/PlayTextureButton" to="AudioStreamPlayer" method="_on_play_texture_button_pressed_sig"]
+[connection signal="pressed" from="AudioControlCanvasLayer/VBoxContainer/ButtonHBoxContainer/NextTextureButton" to="AudioQueue" method="_on_next_texture_button_pressed"]
+[connection signal="toggled" from="AudioControlCanvasLayer/VBoxContainer/ButtonHBoxContainer/LoopTextureButton" to="AudioQueue" method="_on_loop_texture_button_toggled"]
+[connection signal="drag_ended" from="AudioControlCanvasLayer/VBoxContainer/MusicTimeHSlider" to="AudioControlCanvasLayer/VBoxContainer/MusicTimeHSlider" method="_on_drag_ended"]
+[connection signal="drag_ended_sig" from="AudioControlCanvasLayer/VBoxContainer/MusicTimeHSlider" to="AudioStreamPlayer" method="_on_music_time_h_slider_drag_ended_sig"]
+[connection signal="drag_ended_sig" from="AudioControlCanvasLayer/VBoxContainer/MusicTimeHSlider" to="AudioControlCanvasLayer/VBoxContainer/ButtonHBoxContainer/PlayTextureButton" method="_on_music_time_h_slider_drag_ended_sig"]
+[connection signal="drag_started" from="AudioControlCanvasLayer/VBoxContainer/MusicTimeHSlider" to="AudioControlCanvasLayer/VBoxContainer/MusicTimeHSlider" method="_on_drag_started"]
+[connection signal="value_changed" from="AudioControlCanvasLayer/VolumeHBoxContainer/VolumeHSlider" to="AudioControlCanvasLayer/VolumeHBoxContainer/VolumeHSlider" method="_on_value_changed"]
+[connection signal="change_audio" from="AudioQueue" to="AudioStreamPlayer" method="_on_audio_queue_change_audio"]
+[connection signal="disable_next" from="AudioQueue" to="AudioControlCanvasLayer/VBoxContainer/ButtonHBoxContainer/NextTextureButton" method="_on_audio_queue_disable_next"]
+[connection signal="disable_prev" from="AudioQueue" to="AudioControlCanvasLayer/VBoxContainer/ButtonHBoxContainer/PrevTextureButton" method="_on_audio_queue_disable_prev"]
+[connection signal="on_ready_play_queue" from="AudioQueue" to="AudioStreamPlayer" method="_on_audio_queue_on_ready_play_queue"]
