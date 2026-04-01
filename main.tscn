@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://bsfhl7s4oudbb" path="res://Scripts/audio_stream_player.gd" id="1_vivmo"]
 [ext_resource type="AudioStream" uid="uid://bonx2ojml7ym8" path="res://Assets/mean song edit.mp3" id="1_yaehf"]
 [ext_resource type="Texture2D" uid="uid://yyf87x05qiyd" path="res://Assets/Audio Control/Pause.png" id="2_1bvp3"]
+[ext_resource type="Script" uid="uid://b3x0yhaxly035" path="res://audio_visualizer.gd" id="2_kq58d"]
 [ext_resource type="Script" uid="uid://h6mqgn872ah7" path="res://Scripts/music_time_h_box_container.gd" id="3_074og"]
 [ext_resource type="Texture2D" uid="uid://ypowfjney8b1" path="res://Assets/Audio Control/Favorite Checked.png" id="3_kek77"]
 [ext_resource type="Texture2D" uid="uid://c6krx32lsg3ck" path="res://Assets/Audio Control/Next.png" id="3_lquwl"]
@@ -56,6 +57,10 @@ grow_horizontal = 2
 grow_vertical = 0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 4.92
+
+[node name="AudioVisualizer" type="Control" parent="AudioControlCanvasLayer/VBoxContainer" unique_id=1322500992]
+layout_mode = 2
+script = ExtResource("2_kq58d")
 
 [node name="MusicTimeHBoxContainer" type="HBoxContainer" parent="AudioControlCanvasLayer/VBoxContainer" unique_id=1588701228]
 layout_mode = 2
