@@ -27,6 +27,8 @@
 [ext_resource type="Script" uid="uid://cpk0owykbpw6d" path="res://Scripts/volume_h_slider.gd" id="21_getpj"]
 [ext_resource type="Script" uid="uid://bsnchsh0m55lv" path="res://Scripts/audio_queue.gd" id="22_d13ii"]
 [ext_resource type="AudioStream" uid="uid://c25rod82dfuxl" path="res://Assets/in my room - spoonxyz.mp3" id="23_1u8w0"]
+[ext_resource type="Script" uid="uid://6sfyuo0eusr7" path="res://Scripts/volume_h_box_container.gd" id="23_qsp4k"]
+[ext_resource type="Texture2D" uid="uid://fbvr37hgboes" path="res://Assets/Audio Control/Muted Audio.png" id="24_xuqvo"]
 
 [node name="Control" type="Control" unique_id=547307101]
 layout_mode = 3
@@ -156,13 +158,17 @@ grow_horizontal = 0
 grow_vertical = 0
 size_flags_horizontal = 3
 size_flags_vertical = 4
+script = ExtResource("23_qsp4k")
 
-[node name="VolumeTextureRect" type="TextureRect" parent="AudioControlCanvasLayer/VolumeHBoxContainer" unique_id=1918884183]
+[node name="VolumeTextureRect" type="TextureButton" parent="AudioControlCanvasLayer/VolumeHBoxContainer" unique_id=1799304497]
 custom_minimum_size = Vector2(25, 25)
 layout_mode = 2
 size_flags_vertical = 4
-texture = ExtResource("6_7mycd")
-expand_mode = 1
+toggle_mode = true
+texture_normal = ExtResource("6_7mycd")
+texture_pressed = ExtResource("24_xuqvo")
+ignore_texture_size = true
+stretch_mode = 0
 
 [node name="VolumeHSlider" type="HSlider" parent="AudioControlCanvasLayer/VolumeHBoxContainer" unique_id=1512010735]
 layout_mode = 2
@@ -204,6 +210,8 @@ queue = Array[AudioStream]([ExtResource("1_yaehf"), ExtResource("23_1u8w0")])
 [connection signal="drag_ended_sig" from="AudioControlCanvasLayer/VBoxContainer/MusicTimeHSlider" to="AudioStreamPlayer" method="_on_music_time_h_slider_drag_ended_sig"]
 [connection signal="drag_ended_sig" from="AudioControlCanvasLayer/VBoxContainer/MusicTimeHSlider" to="AudioControlCanvasLayer/VBoxContainer/ButtonHBoxContainer/PlayTextureButton" method="_on_music_time_h_slider_drag_ended_sig"]
 [connection signal="drag_started" from="AudioControlCanvasLayer/VBoxContainer/MusicTimeHSlider" to="AudioControlCanvasLayer/VBoxContainer/MusicTimeHSlider" method="_on_drag_started"]
+[connection signal="volume_mute" from="AudioControlCanvasLayer/VolumeHBoxContainer" to="AudioControlCanvasLayer/VolumeHBoxContainer/VolumeHSlider" method="_on_volume_h_box_container_volume_mute"]
+[connection signal="pressed" from="AudioControlCanvasLayer/VolumeHBoxContainer/VolumeTextureRect" to="AudioControlCanvasLayer/VolumeHBoxContainer" method="_on_volume_texture_rect_pressed"]
 [connection signal="value_changed" from="AudioControlCanvasLayer/VolumeHBoxContainer/VolumeHSlider" to="AudioControlCanvasLayer/VolumeHBoxContainer/VolumeHSlider" method="_on_value_changed"]
 [connection signal="change_audio" from="AudioQueue" to="AudioStreamPlayer" method="_on_audio_queue_change_audio"]
 [connection signal="disable_next" from="AudioQueue" to="AudioControlCanvasLayer/VBoxContainer/ButtonHBoxContainer/NextTextureButton" method="_on_audio_queue_disable_next"]
