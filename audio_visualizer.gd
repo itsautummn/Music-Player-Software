@@ -1,82 +1,87 @@
 extends Control
 
-@export var vboxcontainer: VBoxContainer
+const LINE_WIDTH: int = 1
+const LINE_SPACING: int = 5
+const NUM_LINES: int = 64
 
-const VU_COUNT: int = 32 # Number of drawn lines
-const FREQ_MAX: float = 11050.0 # Seems arbitrary but idk yet
+const MAX_FREQ: int = 11050 # Frequency range to analyze
 
-const MIN_DB: int = 60 #db
-const HEIGHT: int = 100 #px?
-const HEIGHT_SCALE: float = 10.0
-const ANIMATION_SPEED: float = 0.1
+var spectrum_instance: AudioEffectInstance
+var top_lines: Array[ColorRect] = []
+var bot_lines: Array[ColorRect] = []
+var gradient: Gradient = Gradient.new()
 
-var WIDTH: float #px?
+# Spectrum Customization
+@export_category('Spectrum Color')
+@export var base_color: Color = Color.WHITE
+@export var use_color_gradient: bool = true
+@export var color_gradient: Gradient
+@export var color_intensity: float = 1000.0
 
-var spectrum_analyzer: AudioEffectInstance = null
-var min_values: Array[float] = []
-var max_values: Array[float] = []
+@export_category('Spectrum Magnitude')
+@export var MAG_SCALE: float = 250.0
+@export_subgroup('Clamp')
+@export var CLAMP_MAG_SCALE: bool = true
+@export var clamp_mag_scale_max: float = 50.0
 
-var do_process: bool = true
+@export_category('Misc')
+@export var ANIM_SPEED: float = 0.1
+@export var volume_affects_magnitude: bool = true
+
 
 func _ready() -> void:
-	WIDTH = vboxcontainer.size.x
-	
-	spectrum_analyzer = AudioServer.get_bus_effect_instance(AudioServer.get_bus_index("Master"), 0)
-	min_values.resize(VU_COUNT)
-	max_values.resize(VU_COUNT)
-	min_values.fill(0.0)
-	max_values.fill(0.0)
-	
-	
+	spectrum_instance = AudioServer.get_bus_effect_instance(AudioServer.get_bus_index("Master"), 0)
+	create_lines()
 
-func _draw() -> void:
-	@warning_ignore("integer_division") # There are literally no floats in this equation I don't know what its freaking out about
-	var line_width: float = WIDTH / VU_COUNT
-	
-	for i in range(VU_COUNT):
-		var min_height: float = min_values[VU_COUNT - 1 - i]
-		var max_height: float = max_values[VU_COUNT - 1 - i]
-		var height: float = lerp(min_height, max_height, ANIMATION_SPEED)
+
+func create_lines() -> void:
+	for i in range(NUM_LINES):
+		var top_line: ColorRect = ColorRect.new()
+		var bot_line: ColorRect = ColorRect.new()
+		top_line.color = base_color
+		bot_line.color = base_color
 		
-		var line_pos_x: float = (line_width * i) - (vboxcontainer.size.x / 2) + (line_width / 2)
+		var total_length: float = LINE_SPACING * NUM_LINES
+		var position_offset: float = total_length / 2
+		top_line.size = Vector2(LINE_WIDTH, 50) # Adjust line size
+		bot_line.size = Vector2(LINE_WIDTH, 50) # Adjust line size
+		top_line.position = Vector2(i * LINE_SPACING - position_offset, 0) # Space lines apart
+		bot_line.position = Vector2(i * LINE_SPACING - position_offset, 0) # Space lines apart
+		add_child(top_line)
+		add_child(bot_line)
+		top_lines.append(top_line)
+		bot_lines.append(bot_line)
 		
-		draw_line(
-			Vector2(line_pos_x, -(HEIGHT - height)),
-			Vector2(line_pos_x, (HEIGHT - height)),
-			Color.WHITE,
-			1.0,
-			true
-		)
 
-
-func _process(_delta: float) -> void:		
-	var data: Array[float] = []
-	var prev_hz: float = 0
+func _process(_delta: float) -> void:
+	if not spectrum_instance:
+		return
 	
-	for i in range(1, VU_COUNT + 1):
-		var hz: float = i * FREQ_MAX / VU_COUNT
-		var magnitude_vec: Vector2 = spectrum_analyzer.get_magnitude_for_frequency_range(prev_hz, hz)
-		var magnitude: float = magnitude_vec.length()
-		var energy: float = clampf((MIN_DB + linear_to_db(magnitude)) / MIN_DB, 0, 1)
-		var height: float = energy * HEIGHT * HEIGHT_SCALE
-		if do_process:
-			data.append(height)
+	var max_freq_amp: float = top_lines.reduce(func(m, b): return b if b.size.y > m.size.y else m).size.y
+	
+	for i in range(NUM_LINES):
+		var freq_start: float = (i * MAX_FREQ) / float(NUM_LINES)
+		var freq_end: float = ((i + 1) * MAX_FREQ) / float(NUM_LINES)
+		var magnitude: float = spectrum_instance.get_magnitude_for_frequency_range(freq_start, freq_end).length()
+		
+		magnitude = magnitude * AudioServer.get_bus_volume_linear(AudioServer.get_bus_index("Master")) if volume_affects_magnitude else magnitude
+		
+		if CLAMP_MAG_SCALE:
+			top_lines[i].size.y = clampf(lerp(top_lines[i].size.y, magnitude * MAG_SCALE * 2, ANIM_SPEED), 0.0, clamp_mag_scale_max)
 		else:
-			data.append(0.0)
-		prev_hz = hz
-	
-	for i in range(VU_COUNT):
-		if data[i] > max_values[i]:
-			max_values[i] = data[i]
-		else:
-			max_values[i] = lerp(max_values[i], data[i], ANIMATION_SPEED)
+			top_lines[i].size.y = lerp(top_lines[i].size.y, magnitude * MAG_SCALE * 2, ANIM_SPEED)
+		bot_lines[i].size.y = top_lines[i].size.y
+		bot_lines[i].scale.y = -1
 		
-		if data[i] <= 0.0:
-			min_values[i] = lerp(min_values[i], float(HEIGHT), ANIMATION_SPEED)
-	
-	# Sound plays back continuously, so the graph needs to be updated every frame
-	queue_redraw()
-
-
-func _on_pause_unpause(paused: bool) -> void:
-	do_process = !paused
+		if use_color_gradient:
+			var intensity: float = (magnitude * color_intensity) / (max_freq_amp * color_intensity) if max_freq_amp > 0.0 else 0.0
+			intensity *= color_intensity
+			intensity = clamp(intensity, 0.0, 1.0) # Keep within a valid range
+			
+			# Get dynamic color from gradient
+			var new_color = color_gradient.sample(intensity)
+			top_lines[i].color = new_color
+			bot_lines[i].color = new_color
+		else:
+			top_lines[i].color = base_color
+			bot_lines[i].color = base_color

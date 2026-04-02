@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://bsfhl7s4oudbb" path="res://Scripts/audio_stream_player.gd" id="1_vivmo"]
 [ext_resource type="AudioStream" uid="uid://bonx2ojml7ym8" path="res://Assets/mean song edit.mp3" id="1_yaehf"]
 [ext_resource type="Texture2D" uid="uid://yyf87x05qiyd" path="res://Assets/Audio Control/Pause.png" id="2_1bvp3"]
-[ext_resource type="Script" uid="uid://b3x0yhaxly035" path="res://audio_visualizer.gd" id="2_kq58d"]
+[ext_resource type="Script" uid="uid://bnd0o2alc0t82" path="res://audio_visualizer.gd" id="2_kq58d"]
 [ext_resource type="Script" uid="uid://h6mqgn872ah7" path="res://Scripts/music_time_h_box_container.gd" id="3_074og"]
 [ext_resource type="Texture2D" uid="uid://ypowfjney8b1" path="res://Assets/Audio Control/Favorite Checked.png" id="3_kek77"]
 [ext_resource type="Texture2D" uid="uid://c6krx32lsg3ck" path="res://Assets/Audio Control/Next.png" id="3_lquwl"]
@@ -30,6 +30,10 @@
 [ext_resource type="AudioStream" uid="uid://c25rod82dfuxl" path="res://Assets/in my room - spoonxyz.mp3" id="23_1u8w0"]
 [ext_resource type="Script" uid="uid://6sfyuo0eusr7" path="res://Scripts/volume_h_box_container.gd" id="23_qsp4k"]
 [ext_resource type="Texture2D" uid="uid://fbvr37hgboes" path="res://Assets/Audio Control/Muted Audio.png" id="24_xuqvo"]
+
+[sub_resource type="Gradient" id="Gradient_kq58d"]
+offsets = PackedFloat32Array(0, 0.54022986, 1)
+colors = PackedColorArray(0.5824761, 0.32570964, 0.6762225, 1, 0.65624106, 0.55504173, 0.9600517, 1, 0.6186365, 0.9839851, 0.93574506, 1)
 
 [node name="Control" type="Control" unique_id=547307101]
 layout_mode = 3
@@ -59,18 +63,13 @@ size_flags_horizontal = 3
 size_flags_vertical = 4
 size_flags_stretch_ratio = 4.92
 
-[node name="AudioVisualizer" type="Control" parent="AudioControlCanvasLayer/VBoxContainer" unique_id=1322500992 node_paths=PackedStringArray("vboxcontainer")]
+[node name="AudioVisualizer" type="Control" parent="AudioControlCanvasLayer/VBoxContainer" unique_id=1322500992]
+z_index = -1
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 2
 script = ExtResource("2_kq58d")
-vboxcontainer = NodePath("..")
-
-[node name="SpacingControl" type="Control" parent="AudioControlCanvasLayer/VBoxContainer" unique_id=1325468101]
-custom_minimum_size = Vector2(0, 100)
-layout_mode = 2
-size_flags_vertical = 3
-size_flags_stretch_ratio = 20.0
+color_gradient = SubResource("Gradient_kq58d")
 
 [node name="MusicTimeHBoxContainer" type="HBoxContainer" parent="AudioControlCanvasLayer/VBoxContainer" unique_id=1588701228]
 layout_mode = 2
