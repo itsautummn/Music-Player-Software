@@ -23,6 +23,14 @@ func _on_pressed() -> void:
 
 
 func _on_music_time_h_slider_drag_ended_sig(_value: float) -> void:
+	unpause()
+
+
+func _on_audio_queue_unpause() -> void:
+	unpause()
+
+
+func unpause() -> void:
 	paused = false
 	texture_normal = pause_texture
 	texture_hover = pause_texture_highlight

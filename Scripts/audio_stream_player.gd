@@ -1,6 +1,7 @@
 extends AudioStreamPlayer
 
 signal update_playback_position
+signal unpaused
 
 var loop: bool = false
 

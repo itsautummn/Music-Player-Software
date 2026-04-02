@@ -4,6 +4,7 @@ signal on_ready_play_queue
 signal change_audio
 signal disable_prev
 signal disable_next
+signal unpause
 
 @export var queue: Array[AudioStream]
 
@@ -33,6 +34,7 @@ func prev_song() -> void:
 		cur_queue_idx -= 1
 		change_audio.emit(queue[cur_queue_idx])
 		check_queue_and_disable_skip_buttons()
+		unpause.emit()
 
 
 func next_song() -> void:
@@ -40,6 +42,7 @@ func next_song() -> void:
 		cur_queue_idx += 1
 		change_audio.emit(queue[cur_queue_idx])
 		check_queue_and_disable_skip_buttons()
+		unpause.emit()
 
 
 func check_queue_and_disable_skip_buttons() -> void:

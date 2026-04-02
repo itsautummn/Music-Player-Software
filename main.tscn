@@ -56,11 +56,21 @@ offset_right = 215.5
 grow_horizontal = 2
 grow_vertical = 0
 size_flags_horizontal = 3
+size_flags_vertical = 4
 size_flags_stretch_ratio = 4.92
 
-[node name="AudioVisualizer" type="Control" parent="AudioControlCanvasLayer/VBoxContainer" unique_id=1322500992]
+[node name="AudioVisualizer" type="Control" parent="AudioControlCanvasLayer/VBoxContainer" unique_id=1322500992 node_paths=PackedStringArray("vboxcontainer")]
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 2
 script = ExtResource("2_kq58d")
+vboxcontainer = NodePath("..")
+
+[node name="SpacingControl" type="Control" parent="AudioControlCanvasLayer/VBoxContainer" unique_id=1325468101]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 20.0
 
 [node name="MusicTimeHBoxContainer" type="HBoxContainer" parent="AudioControlCanvasLayer/VBoxContainer" unique_id=1588701228]
 layout_mode = 2
@@ -197,18 +207,19 @@ grow_vertical = 2
 color = Color(0.46666667, 0.18431373, 0.101960786, 1)
 
 [node name="MusicSelectionCanvasLayer" type="CanvasLayer" parent="." unique_id=2055828901]
-visible = false
 
 [node name="AudioQueue" type="Node" parent="." unique_id=507266507]
 script = ExtResource("22_d13ii")
 queue = Array[AudioStream]([ExtResource("1_yaehf"), ExtResource("23_1u8w0")])
 
 [connection signal="finished" from="AudioStreamPlayer" to="AudioQueue" method="_on_audio_stream_player_finished"]
+[connection signal="unpaused" from="AudioStreamPlayer" to="AudioControlCanvasLayer/VBoxContainer/AudioVisualizer" method="_on_pause_unpause"]
 [connection signal="update_playback_position" from="AudioStreamPlayer" to="AudioControlCanvasLayer/VBoxContainer/MusicTimeHBoxContainer" method="_on_audio_stream_player_update_playback_position"]
 [connection signal="update_playback_position" from="AudioStreamPlayer" to="AudioControlCanvasLayer/VBoxContainer/MusicTimeHSlider" method="_on_audio_stream_player_update_playback_position"]
 [connection signal="pressed" from="AudioControlCanvasLayer/VBoxContainer/ButtonHBoxContainer/PrevTextureButton" to="AudioQueue" method="_on_prev_texture_button_pressed"]
 [connection signal="pressed" from="AudioControlCanvasLayer/VBoxContainer/ButtonHBoxContainer/PlayTextureButton" to="AudioControlCanvasLayer/VBoxContainer/ButtonHBoxContainer/PlayTextureButton" method="_on_pressed"]
 [connection signal="pressed_sig" from="AudioControlCanvasLayer/VBoxContainer/ButtonHBoxContainer/PlayTextureButton" to="AudioStreamPlayer" method="_on_play_texture_button_pressed_sig"]
+[connection signal="pressed_sig" from="AudioControlCanvasLayer/VBoxContainer/ButtonHBoxContainer/PlayTextureButton" to="AudioControlCanvasLayer/VBoxContainer/AudioVisualizer" method="_on_pause_unpause"]
 [connection signal="pressed" from="AudioControlCanvasLayer/VBoxContainer/ButtonHBoxContainer/NextTextureButton" to="AudioQueue" method="_on_next_texture_button_pressed"]
 [connection signal="toggled" from="AudioControlCanvasLayer/VBoxContainer/ButtonHBoxContainer/LoopTextureButton" to="AudioQueue" method="_on_loop_texture_button_toggled"]
 [connection signal="drag_ended" from="AudioControlCanvasLayer/VBoxContainer/MusicTimeHSlider" to="AudioControlCanvasLayer/VBoxContainer/MusicTimeHSlider" method="_on_drag_ended"]
@@ -222,3 +233,4 @@ queue = Array[AudioStream]([ExtResource("1_yaehf"), ExtResource("23_1u8w0")])
 [connection signal="disable_next" from="AudioQueue" to="AudioControlCanvasLayer/VBoxContainer/ButtonHBoxContainer/NextTextureButton" method="_on_audio_queue_disable_next"]
 [connection signal="disable_prev" from="AudioQueue" to="AudioControlCanvasLayer/VBoxContainer/ButtonHBoxContainer/PrevTextureButton" method="_on_audio_queue_disable_prev"]
 [connection signal="on_ready_play_queue" from="AudioQueue" to="AudioStreamPlayer" method="_on_audio_queue_on_ready_play_queue"]
+[connection signal="unpause" from="AudioQueue" to="AudioControlCanvasLayer/VBoxContainer/ButtonHBoxContainer/PlayTextureButton" method="_on_audio_queue_unpause"]

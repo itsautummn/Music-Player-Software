@@ -14,6 +14,6 @@ func _on_drag_started() -> void:
 	dragging = true
 
 
-func _on_drag_ended(value_changed: bool) -> void:
+func _on_drag_ended(_value_changed: bool) -> void:
 	dragging = false
 	drag_ended_sig.emit(value)
