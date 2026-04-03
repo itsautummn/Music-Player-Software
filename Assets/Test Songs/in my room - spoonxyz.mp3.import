@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://c25rod82dfuxl"
+path="res://.godot/imported/in my room - spoonxyz.mp3-2ab4bd883fde2877b683603a153b4b8d.mp3str"
+
+[deps]
+
+source_file="res://Assets/Test Songs/in my room - spoonxyz.mp3"
+dest_files=["res://.godot/imported/in my room - spoonxyz.mp3-2ab4bd883fde2877b683603a153b4b8d.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

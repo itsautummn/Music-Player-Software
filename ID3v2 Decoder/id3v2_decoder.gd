@@ -60,7 +60,7 @@ func read_metadata(audio: AudioStream) -> void:
 	# File Identifier (3 Bytes) & Version (2 Bytes) (we have to get the major version first to support the proper encoding type)
 	var file_identifier_bytes: PackedByteArray = file.get_buffer(3)
 	var major_version: int = file.get_8()
-	var revision_number: int = file.get_8()
+	var _revision_number: int = file.get_8()
 	var file_identifier: String = _get_string_from_proper_encode_type(file_identifier_bytes, major_version)
 	if file_identifier != 'ID3' and (major_version != 3 or major_version != 4):
 		print('ERROR: Provided MP3 file does not include an ID3v2.3 or ID3v2.4 metadata tag')
@@ -278,13 +278,13 @@ func _decode_text_frame(frame_data: PackedByteArray, major_version: int) -> Stri
 				is_little_endian = false
 				string_bytes = string_bytes.slice(2)
 			
-		# Find doublue null terminator
+		# Find double null terminator
 		for i in range(0, string_bytes.size() - 1, 2):
 			if string_bytes[i] == 0 and string_bytes[i + 1] == 0:
 				string_bytes = string_bytes.slice(0, i)
 				break
 		
-		# Convert UTF016 bytes to string
+		# Convert UTF16 bytes to string
 		var utf16_string = ''
 		for i in range(0, string_bytes.size(), 2):
 			if i + 1 < string_bytes.size():

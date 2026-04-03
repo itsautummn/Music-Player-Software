@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://cgt3l3ppn8tva"]
+
+[ext_resource type="Script" uid="uid://cxfqw2kc4rd48" path="res://ID3v2 Decoder/id3v2_decoder.gd" id="1_3gbv0"]
+
+[node name="ID3v2Decoder" type="Node" unique_id=1976953250]
+script = ExtResource("1_3gbv0")

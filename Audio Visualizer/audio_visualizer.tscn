@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://bb1o6ujy7x5f"]
+
+[ext_resource type="Script" uid="uid://bnd0o2alc0t82" path="res://Audio Visualizer/audio_visualizer.gd" id="1_7ur3y"]
+
+[sub_resource type="Gradient" id="Gradient_kq58d"]
+offsets = PackedFloat32Array(0, 0.54022986, 1)
+colors = PackedColorArray(0.5824761, 0.32570964, 0.6762225, 1, 0.65624106, 0.55504173, 0.9600517, 1, 0.6186365, 0.9839851, 0.93574506, 1)
+
+[node name="AudioVisualizer" type="Control" unique_id=210658103]
+z_index = -1
+layout_mode = 3
+anchors_preset = 0
+size_flags_horizontal = 4
+size_flags_vertical = 2
+script = ExtResource("1_7ur3y")
+color_gradient = SubResource("Gradient_kq58d")
+volume_affects_magnitude = false
