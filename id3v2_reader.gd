@@ -62,16 +62,14 @@ func read_metadata(audio: AudioStream) -> void:
 	var major_version: int = file.get_8()
 	var revision_number: int = file.get_8()
 	var file_identifier: String = _get_string_from_proper_encode_type(file_identifier_bytes, major_version)
-	print('File Identifier: %s' % file_identifier)
-	print('Version: ID3v2.%s.%s' % [major_version, revision_number])
+	if file_identifier != 'ID3' and (major_version != 3 or major_version != 4):
+		print('ERROR: Provided MP3 file does not include an ID3v2.3 or ID3v2.4 metadata tag')
+		return
 	# Flags (1 Byte)
-	var flags: int = file.get_8()
-	print('Flags: ->')
-	_read_bits(flags)
+	var _flags: int = file.get_8()
 	# Size (4 Bytes)
 	var size_bytes: PackedByteArray = file.get_buffer(4)
 	var size: int = _syncsafe_to_int(size_bytes)
-	print('Size: %s' % size)
 	
 	# > Read first frame to see if I can actually do this
 	# > Looks like I can :D
@@ -83,7 +81,6 @@ func read_metadata(audio: AudioStream) -> void:
 		var frame_ID: String = _get_string_from_proper_encode_type(frame_ID_bytes, major_version)
 		if frame_ID == "": # Break statement
 			break
-		print('Frame ID: %s' % frame_ID)
 		# Frame Size
 		var frame_size_bytes: PackedByteArray = file.get_buffer(4)
 		var frame_size: int
@@ -95,10 +92,8 @@ func read_metadata(audio: AudioStream) -> void:
 			frame_size = _syncsafe_to_int(frame_size_bytes)
 		else:
 			print('ERROR: Major version not supported!')
-		print('Frame Size: %s' % frame_size)
 		# Frame flags
-		var frame_flags: int = file.get_16()
-		print('Frame Flags: %s' % frame_flags)
+		var _frame_flags: int = file.get_16()
 		
 		# Read the frame data itself and populate respective variables
 		_parse_metadata_frames(file, frame_ID, frame_size, major_version)

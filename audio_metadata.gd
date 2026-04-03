@@ -43,7 +43,6 @@ func send_out_metadata() -> void:
 
 
 func _on_id3v2_reader_send_out_metadata(metadata: Dictionary) -> void:
-	print('Function called!')
 	title = metadata['title']
 	album = metadata['album']
 	track_number = metadata['track_number']
@@ -54,15 +53,6 @@ func _on_id3v2_reader_send_out_metadata(metadata: Dictionary) -> void:
 	comments = metadata['comments']
 	
 	send_out_metadata()
-	
-	print('Title: %s' % title)
-	print('Album: %s' % album)
-	print('Track Number: %s' % track_number)
-	print('Artist: %s' % artist)
-	print('Album Picture: %s' % (true if album_picture else false))
-	print('Release Date: %s' % release_date)
-	print('Length: %s' % length)
-	print('Comments: %s' % comments)
 
 
 func _on_audio_queue_change_audio(audio: AudioStream) -> void:
