@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bixqp1fh2va87"
+path="res://.godot/imported/Jane Remover - Revengeseekerz - 07 - TURN UP OR DIE.mp3-f1ff6f10298bfeb3c1b09f9a28e8052a.mp3str"
+
+[deps]
+
+source_file="res://Assets/Jane Remover - Revengeseekerz - 07 - TURN UP OR DIE.mp3"
+dest_files=["res://.godot/imported/Jane Remover - Revengeseekerz - 07 - TURN UP OR DIE.mp3-f1ff6f10298bfeb3c1b09f9a28e8052a.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -18,11 +18,6 @@ func _on_play_texture_button_pressed_sig(paused: bool) -> void:
 	stream_paused = paused
 
 
-func _on_audio_queue_on_ready_play_queue(audio: AudioStream) -> void:
-	stream = audio
-	play()
-
-
 func _on_audio_queue_change_audio(audio: AudioStream) -> void:
 	stream = audio
 	play()

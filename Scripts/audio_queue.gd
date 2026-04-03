@@ -1,6 +1,5 @@
 extends Node
 
-signal on_ready_play_queue
 signal change_audio
 signal disable_prev
 signal disable_next
@@ -15,7 +14,7 @@ var loop: bool = false
 
 func _ready() -> void:
 	if (queue[cur_queue_idx] != null):
-		on_ready_play_queue.emit(queue[cur_queue_idx])
+		change_audio.emit(queue[cur_queue_idx])
 		disable_prev.emit(true)
 		if cur_queue_idx + 1 >= queue.size():
 			disable_next.emit(true)

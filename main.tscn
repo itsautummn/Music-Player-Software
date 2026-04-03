@@ -30,10 +30,24 @@
 [ext_resource type="AudioStream" uid="uid://c25rod82dfuxl" path="res://Assets/in my room - spoonxyz.mp3" id="23_1u8w0"]
 [ext_resource type="Script" uid="uid://6sfyuo0eusr7" path="res://Scripts/volume_h_box_container.gd" id="23_qsp4k"]
 [ext_resource type="Texture2D" uid="uid://fbvr37hgboes" path="res://Assets/Audio Control/Muted Audio.png" id="24_xuqvo"]
+[ext_resource type="Texture2D" uid="uid://c4lqgq6jn6em4" path="res://Assets/Missing Album Cover.png" id="28_0rl1p"]
+[ext_resource type="Script" uid="uid://cxfqw2kc4rd48" path="res://id3v2_reader.gd" id="32_htxhm"]
+[ext_resource type="AudioStream" uid="uid://bixqp1fh2va87" path="res://Assets/Jane Remover - Revengeseekerz - 07 - TURN UP OR DIE.mp3" id="32_jq2sk"]
+[ext_resource type="AudioStream" uid="uid://xgofb3dlxask" path="res://Assets/1. Jane Remover - Flash in the Pan.mp3" id="33_4k2k6"]
+[ext_resource type="Script" uid="uid://dn6rbfhn66035" path="res://audio_metadata.gd" id="35_0rl1p"]
 
 [sub_resource type="Gradient" id="Gradient_kq58d"]
 offsets = PackedFloat32Array(0, 0.54022986, 1)
 colors = PackedColorArray(0.5824761, 0.32570964, 0.6762225, 1, 0.65624106, 0.55504173, 0.9600517, 1, 0.6186365, 0.9839851, 0.93574506, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_0rl1p"]
+font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_4k2k6"]
+font_color = Color(1, 1, 1, 0.7490196)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ok6jj"]
+font_color = Color(1, 1, 1, 0.7490196)
 
 [node name="Control" type="Control" unique_id=547307101]
 layout_mode = 3
@@ -70,6 +84,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 2
 script = ExtResource("2_kq58d")
 color_gradient = SubResource("Gradient_kq58d")
+volume_affects_magnitude = false
 
 [node name="MusicTimeHBoxContainer" type="HBoxContainer" parent="AudioControlCanvasLayer/VBoxContainer" unique_id=1588701228]
 layout_mode = 2
@@ -205,11 +220,78 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.46666667, 0.18431373, 0.101960786, 1)
 
+[node name="MetadataHBoxContainer" type="HBoxContainer" parent="BackgroundCanvasLayer" unique_id=410570267]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -189.5
+offset_top = -142.0
+offset_right = 189.5
+offset_bottom = 142.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CoverTextureRect" type="TextureRect" parent="BackgroundCanvasLayer/MetadataHBoxContainer" unique_id=1274552470]
+custom_minimum_size = Vector2(192, 192)
+layout_mode = 2
+texture = ExtResource("28_0rl1p")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="MarginContainer" type="MarginContainer" parent="BackgroundCanvasLayer/MetadataHBoxContainer" unique_id=572680439]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundCanvasLayer/MetadataHBoxContainer/MarginContainer" unique_id=161204759]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="TitleLabel" type="Label" parent="BackgroundCanvasLayer/MetadataHBoxContainer/MarginContainer/VBoxContainer" unique_id=1043929676]
+layout_mode = 2
+text = "Title"
+label_settings = SubResource("LabelSettings_0rl1p")
+vertical_alignment = 1
+
+[node name="ArtistLabel" type="Label" parent="BackgroundCanvasLayer/MetadataHBoxContainer/MarginContainer/VBoxContainer" unique_id=188330142]
+layout_mode = 2
+text = "Artist"
+label_settings = SubResource("LabelSettings_4k2k6")
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundCanvasLayer/MetadataHBoxContainer/MarginContainer/VBoxContainer" unique_id=859747582]
+layout_mode = 2
+
+[node name="AlbumLabel" type="Label" parent="BackgroundCanvasLayer/MetadataHBoxContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1956929193]
+layout_mode = 2
+text = "Album"
+label_settings = SubResource("LabelSettings_4k2k6")
+vertical_alignment = 1
+
+[node name="TrackNumberLabel" type="Label" parent="BackgroundCanvasLayer/MetadataHBoxContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1740752753]
+layout_mode = 2
+text = "Track Number"
+label_settings = SubResource("LabelSettings_ok6jj")
+horizontal_alignment = 2
+
 [node name="MusicSelectionCanvasLayer" type="CanvasLayer" parent="." unique_id=2055828901]
 
 [node name="AudioQueue" type="Node" parent="." unique_id=507266507]
 script = ExtResource("22_d13ii")
-queue = Array[AudioStream]([ExtResource("1_yaehf"), ExtResource("23_1u8w0")])
+queue = Array[AudioStream]([ExtResource("1_yaehf"), ExtResource("23_1u8w0"), ExtResource("32_jq2sk"), ExtResource("33_4k2k6")])
+
+[node name="AudioMetadata" type="Node" parent="." unique_id=619735078 node_paths=PackedStringArray("id3v2_decoder", "cover_texture_rect", "title_label", "artist_label", "album_label", "track_number_label")]
+script = ExtResource("35_0rl1p")
+id3v2_decoder = NodePath("ID3v2Reader")
+cover_texture_rect = NodePath("../BackgroundCanvasLayer/MetadataHBoxContainer/CoverTextureRect")
+title_label = NodePath("../BackgroundCanvasLayer/MetadataHBoxContainer/MarginContainer/VBoxContainer/TitleLabel")
+artist_label = NodePath("../BackgroundCanvasLayer/MetadataHBoxContainer/MarginContainer/VBoxContainer/ArtistLabel")
+album_label = NodePath("../BackgroundCanvasLayer/MetadataHBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/AlbumLabel")
+track_number_label = NodePath("../BackgroundCanvasLayer/MetadataHBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/TrackNumberLabel")
+
+[node name="ID3v2Reader" type="Node" parent="AudioMetadata" unique_id=775645044]
+script = ExtResource("32_htxhm")
 
 [connection signal="finished" from="AudioStreamPlayer" to="AudioQueue" method="_on_audio_stream_player_finished"]
 [connection signal="unpaused" from="AudioStreamPlayer" to="AudioControlCanvasLayer/VBoxContainer/AudioVisualizer" method="_on_pause_unpause"]
@@ -229,7 +311,8 @@ queue = Array[AudioStream]([ExtResource("1_yaehf"), ExtResource("23_1u8w0")])
 [connection signal="pressed" from="AudioControlCanvasLayer/VolumeHBoxContainer/VolumeTextureRect" to="AudioControlCanvasLayer/VolumeHBoxContainer" method="_on_volume_texture_rect_pressed"]
 [connection signal="value_changed" from="AudioControlCanvasLayer/VolumeHBoxContainer/VolumeHSlider" to="AudioControlCanvasLayer/VolumeHBoxContainer/VolumeHSlider" method="_on_value_changed"]
 [connection signal="change_audio" from="AudioQueue" to="AudioStreamPlayer" method="_on_audio_queue_change_audio"]
+[connection signal="change_audio" from="AudioQueue" to="AudioMetadata" method="_on_audio_queue_change_audio"]
 [connection signal="disable_next" from="AudioQueue" to="AudioControlCanvasLayer/VBoxContainer/ButtonHBoxContainer/NextTextureButton" method="_on_audio_queue_disable_next"]
 [connection signal="disable_prev" from="AudioQueue" to="AudioControlCanvasLayer/VBoxContainer/ButtonHBoxContainer/PrevTextureButton" method="_on_audio_queue_disable_prev"]
-[connection signal="on_ready_play_queue" from="AudioQueue" to="AudioStreamPlayer" method="_on_audio_queue_on_ready_play_queue"]
 [connection signal="unpause" from="AudioQueue" to="AudioControlCanvasLayer/VBoxContainer/ButtonHBoxContainer/PlayTextureButton" method="_on_audio_queue_unpause"]
+[connection signal="send_out_metadata" from="AudioMetadata/ID3v2Reader" to="AudioMetadata" method="_on_id3v2_reader_send_out_metadata"]
