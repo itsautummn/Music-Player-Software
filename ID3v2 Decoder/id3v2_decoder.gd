@@ -64,6 +64,8 @@ func read_metadata(audio: AudioStream) -> void:
 	var file_identifier: String = _get_string_from_proper_encode_type(file_identifier_bytes, major_version)
 	if file_identifier != 'ID3' and (major_version != 3 or major_version != 4):
 		print('ERROR: Provided MP3 file does not include an ID3v2.3 or ID3v2.4 metadata tag')
+		_reset_metadata_variables()
+		_release_metadata()
 		return
 	# Flags (1 Byte)
 	var _flags: int = file.get_8()
@@ -332,7 +334,10 @@ func _release_metadata() -> void:
 	}
 	
 	send_out_metadata.emit(metadata_dict)
-	
+	_reset_metadata_variables()
+
+
+func _reset_metadata_variables() -> void:
 	_title = ''
 	_album = ''
 	_track_number = ''
