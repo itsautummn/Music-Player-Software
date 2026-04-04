@@ -7,6 +7,7 @@ extends Node
 
 @export_category('UI To Populate')
 @export var cover_texture_rect: TextureRect
+@export var background_texture_rect: TextureRect
 @export var title_label: Label
 @export var artist_label: Label
 @export var album_label: Label
@@ -28,7 +29,10 @@ func _ready() -> void:
 
 
 func send_out_metadata() -> void:
+	if album_picture:
+		album_picture.generate_mipmaps()
 	cover_texture_rect.texture = ImageTexture.create_from_image(album_picture) if album_picture else missing_album_cover_texture
+	background_texture_rect.texture = ImageTexture.create_from_image(album_picture) if album_picture else null
 	title_label.text = title if title else 'Unknown Title'
 	artist_label.text = artist if artist else 'Unknown Artist'
 	album_label.text = album if album else 'Unknown Album'
