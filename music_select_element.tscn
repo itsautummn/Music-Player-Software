@@ -1,0 +1,87 @@
+[gd_scene format=3 uid="uid://gs2k0i6h000e"]
+
+[ext_resource type="Texture2D" uid="uid://c4lqgq6jn6em4" path="res://Assets/Missing Album Cover.png" id="1_kd7je"]
+[ext_resource type="Script" uid="uid://b80j740pxucc1" path="res://music_select_element.gd" id="1_u8qea"]
+[ext_resource type="Theme" uid="uid://bjlrrfb8ne3e0" path="res://Assets/ui_theme.tres" id="2_u8qea"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_d4lsq"]
+font_size = 12
+font_color = Color(1, 1, 1, 0.7490196)
+
+[sub_resource type="LabelSettings" id="LabelSettings_kd7je"]
+font_size = 14
+font_color = Color(1, 1, 1, 0.8509804)
+
+[node name="MusicSelectElement" type="Control" unique_id=522514140 node_paths=PackedStringArray("file_type_texture_rect", "title_label", "artist_label", "length_label")]
+custom_minimum_size = Vector2(125, 40)
+layout_mode = 3
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+theme = ExtResource("2_u8qea")
+script = ExtResource("1_u8qea")
+file_type_texture_rect = NodePath("PanelContainer/MarginContainer/HBoxContainer/FileTypeTextureRect")
+title_label = NodePath("PanelContainer/MarginContainer/HBoxContainer/TitleLabel")
+artist_label = NodePath("PanelContainer/MarginContainer/HBoxContainer/ArtistLabel")
+length_label = NodePath("PanelContainer/MarginContainer/HBoxContainer/LengthLabel")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=921936583]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 31.0
+grow_horizontal = 2
+theme = ExtResource("2_u8qea")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=803371722]
+layout_mode = 2
+theme = ExtResource("2_u8qea")
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer" unique_id=693959292]
+layout_mode = 2
+theme = ExtResource("2_u8qea")
+
+[node name="FileTypeTextureRect" type="TextureRect" parent="PanelContainer/MarginContainer/HBoxContainer" unique_id=125080590]
+layout_mode = 2
+theme = ExtResource("2_u8qea")
+texture = ExtResource("1_kd7je")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="TitleLabel" type="Label" parent="PanelContainer/MarginContainer/HBoxContainer" unique_id=810678505]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+theme = ExtResource("2_u8qea")
+text = "Title"
+vertical_alignment = 1
+text_overrun_behavior = 3
+
+[node name="ArtistLabel" type="Label" parent="PanelContainer/MarginContainer/HBoxContainer" unique_id=588726262]
+custom_minimum_size = Vector2(110, 0)
+layout_mode = 2
+theme = ExtResource("2_u8qea")
+text = "Album"
+label_settings = SubResource("LabelSettings_d4lsq")
+vertical_alignment = 1
+text_overrun_behavior = 3
+
+[node name="SpacingControl" type="Control" parent="PanelContainer/MarginContainer/HBoxContainer" unique_id=478448755]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 20.0
+theme = ExtResource("2_u8qea")
+
+[node name="LengthLabel" type="Label" parent="PanelContainer/MarginContainer/HBoxContainer" unique_id=1542949769]
+layout_mode = 2
+theme = ExtResource("2_u8qea")
+text = "Length"
+label_settings = SubResource("LabelSettings_kd7je")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

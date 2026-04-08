@@ -1,0 +1,78 @@
+[gd_scene format=3 uid="uid://cj3y3hikjvnvc"]
+
+[ext_resource type="Texture2D" uid="uid://c4lqgq6jn6em4" path="res://Assets/Missing Album Cover.png" id="1_gsm6w"]
+[ext_resource type="Script" uid="uid://chy2y3hil1pt8" path="res://music_selection_panel.gd" id="1_gxx5v"]
+
+[node name="MusicSelectionPanel" type="Control" unique_id=1211068328 node_paths=PackedStringArray("music_select_vbox_container")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_gxx5v")
+music_select_vbox_container = NodePath("ContentPanelContainer/MarginContainer/VBoxContainer/MusicSelectScrollContainer/MusicSelectVBoxContainer")
+
+[node name="ContentPanelContainer" type="PanelContainer" parent="." unique_id=1686932224]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 247.0
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="ContentPanelContainer" unique_id=2031800033]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ContentPanelContainer/MarginContainer" unique_id=865320715]
+layout_mode = 2
+
+[node name="LogoTextureRect" type="TextureRect" parent="ContentPanelContainer/MarginContainer/VBoxContainer" unique_id=1191827365]
+layout_mode = 2
+texture = ExtResource("1_gsm6w")
+expand_mode = 4
+
+[node name="TabbarHBoxContainer" type="HBoxContainer" parent="ContentPanelContainer/MarginContainer/VBoxContainer" unique_id=1868794059]
+layout_mode = 2
+
+[node name="AlbumsButton" type="Button" parent="ContentPanelContainer/MarginContainer/VBoxContainer/TabbarHBoxContainer" unique_id=1067559025]
+layout_mode = 2
+text = "Albums"
+
+[node name="PlaylistsButton" type="Button" parent="ContentPanelContainer/MarginContainer/VBoxContainer/TabbarHBoxContainer" unique_id=1423061925]
+layout_mode = 2
+text = "Playlists"
+
+[node name="LikedSongsButton" type="Button" parent="ContentPanelContainer/MarginContainer/VBoxContainer/TabbarHBoxContainer" unique_id=147074037]
+layout_mode = 2
+text = "Liked Songs
+"
+
+[node name="MusicSelectScrollContainer" type="ScrollContainer" parent="ContentPanelContainer/MarginContainer/VBoxContainer" unique_id=1936614817]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MusicSelectVBoxContainer" type="VBoxContainer" parent="ContentPanelContainer/MarginContainer/VBoxContainer/MusicSelectScrollContainer" unique_id=1642117858]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="OpenButtonPanelContainer" type="PanelContainer" parent="." unique_id=1042917736]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.235
+anchor_top = 0.01
+anchor_right = 0.235
+anchor_bottom = 0.01
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="OpenButtonPanelContainer" unique_id=1450958802]
+layout_mode = 2
+text = "<"
+horizontal_alignment = 1
+vertical_alignment = 1

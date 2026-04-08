@@ -4,6 +4,7 @@ signal change_audio
 signal disable_prev
 signal disable_next
 signal unpause
+signal send_queue(queue: Array[AudioStream])
 
 @export var queue: Array[AudioStream]
 
@@ -13,12 +14,16 @@ var loop: bool = false
 
 
 func _ready() -> void:
-	if (queue[cur_queue_idx] != null):
-		change_audio.emit(queue[cur_queue_idx])
-		disable_prev.emit(true)
-		if cur_queue_idx + 1 >= queue.size():
-			disable_next.emit(true)
+	play_first_song_in_queue()
+	send_out_queue()
+	
 
+func play_first_song_in_queue() -> void:
+	if (queue[0] != null):
+		change_audio.emit(queue[0])
+		disable_prev.emit(true)
+		if 1 >= queue.size():
+			disable_next.emit(true)
 
 func _on_prev_texture_button_pressed() -> void:
 	prev_song()
@@ -65,3 +70,7 @@ func _on_audio_stream_player_finished() -> void:
 		change_audio.emit(queue[cur_queue_idx])
 	else:
 		next_song()
+
+
+func send_out_queue() -> void:
+	send_queue.emit(queue)

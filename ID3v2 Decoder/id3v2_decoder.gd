@@ -346,3 +346,19 @@ func _reset_metadata_variables() -> void:
 	_release_date = ''
 	_length = ''
 	_comments = ''
+
+
+func read_and_release_metadata(audio: AudioStream) -> Dictionary:
+	read_metadata(audio)
+	var metadata_dict: Dictionary = {
+		'title': _title,
+		'album': _album,
+		'track_number': _track_number,
+		'artist': _artist,
+		'album_picture': _album_picture,
+		'release_date': _release_date,
+		'length': _length,
+		'comments': _comments
+	}
+	print(metadata_dict)
+	return metadata_dict

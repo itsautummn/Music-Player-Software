@@ -33,6 +33,7 @@
 [ext_resource type="Texture2D" uid="uid://c4lqgq6jn6em4" path="res://Assets/Missing Album Cover.png" id="28_0rl1p"]
 [ext_resource type="Shader" uid="uid://38laxwcbuse7" path="res://blur.gdshader" id="28_facbu"]
 [ext_resource type="Script" uid="uid://c6y1bdu8yji3p" path="res://background_texture_rect.gd" id="29_facbu"]
+[ext_resource type="PackedScene" uid="uid://cj3y3hikjvnvc" path="res://music_selection_panel.tscn" id="31_b1qrp"]
 [ext_resource type="AudioStream" uid="uid://bixqp1fh2va87" path="res://Assets/Test Songs/Jane Remover - Revengeseekerz - 07 - TURN UP OR DIE.mp3" id="32_jq2sk"]
 [ext_resource type="AudioStream" uid="uid://xgofb3dlxask" path="res://Assets/Test Songs/1. Jane Remover - Flash in the Pan.mp3" id="33_4k2k6"]
 [ext_resource type="Script" uid="uid://dn6rbfhn66035" path="res://Scripts/audio_metadata.gd" id="35_0rl1p"]
@@ -270,17 +271,17 @@ text = "Artist"
 label_settings = SubResource("LabelSettings_4k2k6")
 vertical_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundCanvasLayer/MetadataHBoxContainer/MarginContainer/VBoxContainer" unique_id=859747582]
+[node name="AlbumInfoHBoxContainer" type="HBoxContainer" parent="BackgroundCanvasLayer/MetadataHBoxContainer/MarginContainer/VBoxContainer" unique_id=859747582]
 layout_mode = 2
 
-[node name="AlbumLabel" type="Label" parent="BackgroundCanvasLayer/MetadataHBoxContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1956929193]
+[node name="AlbumLabel" type="Label" parent="BackgroundCanvasLayer/MetadataHBoxContainer/MarginContainer/VBoxContainer/AlbumInfoHBoxContainer" unique_id=1956929193]
 layout_mode = 2
 theme = ExtResource("6_272bh")
 text = "Album"
 label_settings = SubResource("LabelSettings_4k2k6")
 vertical_alignment = 1
 
-[node name="TrackNumberLabel" type="Label" parent="BackgroundCanvasLayer/MetadataHBoxContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1740752753]
+[node name="TrackNumberLabel" type="Label" parent="BackgroundCanvasLayer/MetadataHBoxContainer/MarginContainer/VBoxContainer/AlbumInfoHBoxContainer" unique_id=1740752753]
 layout_mode = 2
 theme = ExtResource("6_272bh")
 text = "Track Number"
@@ -289,19 +290,22 @@ horizontal_alignment = 2
 
 [node name="MusicSelectionCanvasLayer" type="CanvasLayer" parent="." unique_id=2055828901]
 
+[node name="MusicSelectionPanel" parent="MusicSelectionCanvasLayer" unique_id=1211068328 instance=ExtResource("31_b1qrp")]
+
 [node name="AudioQueue" type="Node" parent="." unique_id=507266507]
 script = ExtResource("22_d13ii")
 queue = Array[AudioStream]([ExtResource("1_yaehf"), ExtResource("23_1u8w0"), ExtResource("32_jq2sk"), ExtResource("33_4k2k6")])
 
-[node name="AudioMetadata" type="Node" parent="." unique_id=619735078 node_paths=PackedStringArray("id3v2_decoder", "cover_texture_rect", "background_texture_rect", "title_label", "artist_label", "album_label", "track_number_label")]
+[node name="AudioMetadata" type="Node" parent="." unique_id=619735078 node_paths=PackedStringArray("id3v2_decoder", "cover_texture_rect", "background_texture_rect", "title_label", "artist_label", "album_label", "track_number_label", "album_info_hbox_container")]
 script = ExtResource("35_0rl1p")
 id3v2_decoder = NodePath("ID3v2Decoder")
 cover_texture_rect = NodePath("../BackgroundCanvasLayer/MetadataHBoxContainer/CoverTextureRect")
 background_texture_rect = NodePath("../BackgroundCanvasLayer/BackgroundTextureRect")
 title_label = NodePath("../BackgroundCanvasLayer/MetadataHBoxContainer/MarginContainer/VBoxContainer/TitleLabel")
 artist_label = NodePath("../BackgroundCanvasLayer/MetadataHBoxContainer/MarginContainer/VBoxContainer/ArtistLabel")
-album_label = NodePath("../BackgroundCanvasLayer/MetadataHBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/AlbumLabel")
-track_number_label = NodePath("../BackgroundCanvasLayer/MetadataHBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/TrackNumberLabel")
+album_label = NodePath("../BackgroundCanvasLayer/MetadataHBoxContainer/MarginContainer/VBoxContainer/AlbumInfoHBoxContainer/AlbumLabel")
+track_number_label = NodePath("../BackgroundCanvasLayer/MetadataHBoxContainer/MarginContainer/VBoxContainer/AlbumInfoHBoxContainer/TrackNumberLabel")
+album_info_hbox_container = NodePath("../BackgroundCanvasLayer/MetadataHBoxContainer/MarginContainer/VBoxContainer/AlbumInfoHBoxContainer")
 
 [node name="ID3v2Decoder" parent="AudioMetadata" unique_id=1976953250 instance=ExtResource("35_ok6jj")]
 
@@ -324,5 +328,6 @@ track_number_label = NodePath("../BackgroundCanvasLayer/MetadataHBoxContainer/Ma
 [connection signal="change_audio" from="AudioQueue" to="AudioMetadata" method="_on_audio_queue_change_audio"]
 [connection signal="disable_next" from="AudioQueue" to="AudioControlCanvasLayer/VBoxContainer/ButtonHBoxContainer/NextTextureButton" method="_on_audio_queue_disable_next"]
 [connection signal="disable_prev" from="AudioQueue" to="AudioControlCanvasLayer/VBoxContainer/ButtonHBoxContainer/PrevTextureButton" method="_on_audio_queue_disable_prev"]
+[connection signal="send_queue" from="AudioQueue" to="MusicSelectionCanvasLayer/MusicSelectionPanel" method="_on_audio_queue_send_queue"]
 [connection signal="unpause" from="AudioQueue" to="AudioControlCanvasLayer/VBoxContainer/ButtonHBoxContainer/PlayTextureButton" method="_on_audio_queue_unpause"]
 [connection signal="send_out_metadata" from="AudioMetadata/ID3v2Decoder" to="AudioMetadata" method="_on_id3v2_reader_send_out_metadata"]

@@ -12,6 +12,7 @@ extends Node
 @export var artist_label: Label
 @export var album_label: Label
 @export var track_number_label: Label
+@export var album_info_hbox_container: HBoxContainer
 
 # Metadata Variables
 var title: String
@@ -35,8 +36,12 @@ func send_out_metadata() -> void:
 	background_texture_rect.texture = ImageTexture.create_from_image(album_picture) if album_picture else null
 	title_label.text = title if title else 'Unknown Title'
 	artist_label.text = artist if artist else 'Unknown Artist'
-	album_label.text = album if album else 'Unknown Album'
-	track_number_label.text = '| ' + format_track_number() if track_number else ''
+	if album != '':
+		album_info_hbox_container.visible = true
+		album_label.text = album
+		track_number_label.text = '| ' + format_track_number() if track_number else ''
+	else:
+		album_info_hbox_container.visible = false
 	
 	# Clear metadata so no residual data appears on a wrong song
 	album_picture = null
