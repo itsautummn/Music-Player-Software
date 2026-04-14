@@ -10,8 +10,8 @@ func _ready() -> void:
 	print(previous_vol_before_mute)
 
 
-func _on_value_changed(value: float) -> void:
-	AudioServer.set_bus_volume_linear(AudioServer.get_bus_index("Master"), value / 100)
+func _on_value_changed(slider_value: float) -> void:
+	AudioServer.set_bus_volume_linear(AudioServer.get_bus_index("Master"), slider_value / 100)
 	
 
 func _on_volume_h_box_container_volume_mute(muted: bool) -> void:

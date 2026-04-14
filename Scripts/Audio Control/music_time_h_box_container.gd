@@ -17,6 +17,7 @@ func sec_to_min(seconds: float) -> int:
 
 
 func sec_modulo_min(seconds: float) -> int:
+	@warning_ignore("narrowing_conversion")
 	return fmod(seconds, 60)
 
 

@@ -1,0 +1,98 @@
+[gd_scene format=3 uid="uid://byanekfp8yv5i"]
+
+[ext_resource type="Script" uid="uid://chy2y3hil1pt8" path="res://music_selection_panel.gd" id="1_qhs7c"]
+[ext_resource type="Theme" uid="uid://bjlrrfb8ne3e0" path="res://Assets/ui_theme.tres" id="1_xsv77"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_03lus"]
+
+[node name="MusicSelectionPanel" type="Control" unique_id=1993585217 node_paths=PackedStringArray("tab_container", "album_select_container", "playlist_select_container", "liked_select_container", "unsorted_select_container")]
+layout_mode = 3
+anchors_preset = 9
+anchor_bottom = 1.0
+grow_vertical = 2
+script = ExtResource("1_qhs7c")
+tab_container = NodePath("HBoxContainer/TabContainer")
+album_select_container = NodePath("HBoxContainer/TabContainer/Albums/AlbumSelectVBoxContainer")
+playlist_select_container = NodePath("HBoxContainer/TabContainer/Playlists/PlaylistSelectVBoxContainer")
+liked_select_container = NodePath("HBoxContainer/TabContainer/Liked/LikedSelectVBoxContainer")
+unsorted_select_container = NodePath("HBoxContainer/TabContainer/Unsorted/UnsortedSelectVBoxContainer")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=381254772]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 362.0
+grow_vertical = 2
+
+[node name="TabContainer" type="TabContainer" parent="HBoxContainer" unique_id=1728783000]
+layout_mode = 2
+theme = ExtResource("1_xsv77")
+tab_alignment = 1
+current_tab = 0
+clip_tabs = false
+
+[node name="Albums" type="ScrollContainer" parent="HBoxContainer/TabContainer" unique_id=1726647227]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("1_xsv77")
+metadata/_tab_index = 0
+
+[node name="AlbumSelectVBoxContainer" type="VBoxContainer" parent="HBoxContainer/TabContainer/Albums" unique_id=1581850601]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_xsv77")
+
+[node name="Playlists" type="ScrollContainer" parent="HBoxContainer/TabContainer" unique_id=62033169]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("1_xsv77")
+metadata/_tab_index = 1
+
+[node name="PlaylistSelectVBoxContainer" type="VBoxContainer" parent="HBoxContainer/TabContainer/Playlists" unique_id=327588158]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_xsv77")
+
+[node name="Liked" type="ScrollContainer" parent="HBoxContainer/TabContainer" unique_id=1282141764]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("1_xsv77")
+metadata/_tab_index = 2
+
+[node name="LikedSelectVBoxContainer" type="VBoxContainer" parent="HBoxContainer/TabContainer/Liked" unique_id=749734370]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_xsv77")
+
+[node name="Unsorted" type="ScrollContainer" parent="HBoxContainer/TabContainer" unique_id=1727765894]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("1_xsv77")
+metadata/_tab_index = 3
+
+[node name="UnsortedSelectVBoxContainer" type="VBoxContainer" parent="HBoxContainer/TabContainer/Unsorted" unique_id=38451614]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_xsv77")
+
+[node name="OpenButtonPanelContainer" type="PanelContainer" parent="HBoxContainer" unique_id=1121437214]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_xsv77")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_03lus")
+
+[node name="OpenButton" type="Button" parent="HBoxContainer/OpenButtonPanelContainer" unique_id=864628812]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+theme = ExtResource("1_xsv77")
+text = "<"
+
+[connection signal="tab_changed" from="HBoxContainer/TabContainer" to="." method="_on_tab_container_tab_changed"]
+[connection signal="pressed" from="HBoxContainer/OpenButtonPanelContainer/OpenButton" to="." method="_on_open_button_pressed"]
